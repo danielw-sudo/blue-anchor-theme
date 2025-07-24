@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { ContentSection } from "@/components/ContentSection";
+import { CTASection } from "@/components/CTASection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 const Index = () => {
   const [isDark, setIsDark] = useState(false);
@@ -21,9 +23,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background theme-transition">
-      <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
+      <Header isDark={isDark} onToggle={toggleTheme} />
       <HeroSection />
       <ContentSection />
+      <TestimonialsSection />
+      <CTASection />
     </div>
   );
 };

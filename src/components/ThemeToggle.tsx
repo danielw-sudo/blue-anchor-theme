@@ -12,7 +12,8 @@ export const ThemeToggle = ({ isDark, onToggle }: ThemeToggleProps) => {
       onClick={onToggle}
       variant="outline"
       size="lg"
-      className="theme-transition fixed top-6 right-6 z-50 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent hover:scale-105 shadow-lg"
+      className="theme-transition bg-card/80 backdrop-blur-sm border-border/50 hover:bg-accent hover:text-accent-foreground hover:scale-105 shadow-lg hover:shadow-xl focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background pulse-glow"
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
       {isDark ? (
         <Sun className="h-5 w-5 mr-2" />
