@@ -12,6 +12,7 @@ interface BlogPost {
   readTime: string;
   category: string;
   featured?: boolean;
+  coverImage?: string;
 }
 
 interface BlogSectionProps {
@@ -22,17 +23,18 @@ const blogPosts: BlogPost[] = [
   {
     id: "1",
     title: "The Future of AI in Content Creation: What to Expect in 2024",
-    excerpt: "Explore the latest trends and predictions for AI-powered content creation tools, and how they're reshaping the creative industry.",
+    excerpt: "Explore the latest trends and predictions for AI-powered content creation tools, and how they're reshaping the creative industry. From automated video editing to AI-generated music composition, the landscape of creative work is evolving rapidly.",
     author: "Sarah Johnson",
     publishDate: "Dec 15, 2023",
     readTime: "6 min read",
     category: "Industry Insights",
-    featured: true
+    featured: true,
+    coverImage: "[Featured Article Image Placeholder]"
   },
   {
     id: "2",
     title: "10 AI Tools Every Small Business Should Know About",
-    excerpt: "Discover essential AI tools that can help small businesses automate tasks, improve efficiency, and compete with larger companies.",
+    excerpt: "Discover essential AI tools that can help small businesses automate tasks, improve efficiency, and compete with larger companies in today's digital marketplace.",
     author: "Mike Chen",
     publishDate: "Dec 12, 2023",
     readTime: "8 min read",
@@ -41,23 +43,37 @@ const blogPosts: BlogPost[] = [
   {
     id: "3",
     title: "Ethical AI: Building Responsible AI Tools for the Future",
-    excerpt: "Learn about the importance of ethical considerations in AI development and how companies are addressing bias and fairness.",
+    excerpt: "Learn about the importance of ethical considerations in AI development and how companies are addressing bias and fairness in machine learning algorithms.",
     author: "Dr. Emily Rodriguez",
     publishDate: "Dec 10, 2023",
     readTime: "12 min read",
-    category: "Ethics"
+    category: "Ethics",
+    coverImage: "[Ethics Article Image Placeholder]"
   }
 ];
 
 const BlogCard = ({ post, featured = false }: { post: BlogPost; featured?: boolean }) => (
-  <Card className={`glass-light backdrop-blur-sm hover:glass-enhanced group hover:scale-105 theme-transition cursor-pointer ${featured ? 'lg:col-span-2' : ''}`}>
+  <Card className={`glass-light backdrop-blur-sm hover:glass-enhanced card-interactive group cursor-pointer rounded-lg ${featured ? 'lg:col-span-2' : ''}`}>
+    {/* Cover Image Section */}
+    {post.coverImage ? (
+      <div className={`bg-muted/20 rounded-t-lg flex items-center justify-center text-muted-foreground ${featured ? 'h-48 md:h-56' : 'h-40'}`}>
+        <span className={`text-center px-4 ${featured ? 'text-base' : 'text-sm'}`}>
+          {post.coverImage}
+        </span>
+      </div>
+    ) : (
+      <div className={`bg-gradient-to-br from-accent/5 to-accent/10 rounded-t-lg flex items-center justify-center ${featured ? 'h-32 md:h-40' : 'h-24'}`}>
+        <div className="text-accent/30 text-4xl">📄</div>
+      </div>
+    )}
+
     <CardHeader className="pb-4">
       <div className="flex items-center justify-between mb-3">
-        <Badge variant="outline" className="text-xs border-accent/20 text-accent">
+        <Badge variant="outline" className="text-xs border-accent-gold/30 text-accent-gold">
           {post.category}
         </Badge>
         {post.featured && (
-          <Badge className="bg-accent/10 text-accent border-accent/20">
+          <Badge className="bg-accent-gold/10 text-accent-gold border-accent-gold/20">
             Featured
           </Badge>
         )}

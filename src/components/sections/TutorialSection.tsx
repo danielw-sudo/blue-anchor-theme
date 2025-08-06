@@ -67,7 +67,7 @@ const tutorialData: TutorialData[] = [
 ];
 
 const TutorialCard = ({ tutorial }: { tutorial: TutorialData }) => (
-  <Card className="glass-light backdrop-blur-sm hover:glass-enhanced group hover:scale-105 theme-transition cursor-pointer">
+  <Card className="glass-light backdrop-blur-sm hover:glass-enhanced card-interactive group cursor-pointer rounded-lg">
     <CardHeader className="pb-4">
       <div className="flex items-center justify-between mb-3">
         <div className="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center text-accent text-2xl">
@@ -140,7 +140,7 @@ export const TutorialSection = ({ className = "" }: TutorialSectionProps) => {
     <section className={`py-16 px-6 bg-muted/30 ${className}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-accent mb-4 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold text-accent-gold mb-4 animate-fade-in-up">
             Learning Resources
           </h2>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in-up animate-delay-100">

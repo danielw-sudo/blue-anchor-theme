@@ -30,6 +30,9 @@ All colors MUST be HSL.
     --accent: 211 48% 47%; /* #3F72AF - Shared accent */
     --accent-foreground: 0 0% 100%;
 
+    --accent-gold: 45 100% 32%; /* #A67C00 - Dark gold secondary accent */
+    --accent-gold-foreground: 0 0% 100%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
@@ -79,6 +82,9 @@ All colors MUST be HSL.
 
     --accent: 211 48% 47%; /* #3F72AF - Shared accent */
     --accent-foreground: 0 0% 100%;
+
+    --accent-gold: 45 100% 32%; /* #A67C00 - Dark gold secondary accent */
+    --accent-gold-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
@@ -216,5 +222,17 @@ All colors MUST be HSL.
     50% {
       box-shadow: 0 0 0 8px hsl(var(--accent) / 0);
     }
+  }
+
+  /* Global card hover effects */
+  .card-interactive {
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-interactive:hover {
+    border: 2px solid hsl(var(--accent-gold));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px hsl(var(--accent) / 0.1), 0 8px 10px -6px hsl(var(--accent) / 0.1);
   }
 }

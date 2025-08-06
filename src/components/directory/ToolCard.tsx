@@ -21,7 +21,7 @@ interface ToolCardProps {
 
 export const ToolCard = ({ tool, className = "" }: ToolCardProps) => {
   return (
-    <Card className={`glass-light backdrop-blur-sm hover:glass-enhanced group hover:scale-105 theme-transition cursor-pointer ${className}`}>
+    <Card className={`glass-light backdrop-blur-sm hover:glass-enhanced card-interactive group cursor-pointer rounded-lg ${className}`}>
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
@@ -41,7 +41,7 @@ export const ToolCard = ({ tool, className = "" }: ToolCardProps) => {
             </div>
           </div>
           {tool.featured && (
-            <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20">
+            <Badge variant="secondary" className="bg-accent-gold/10 text-accent-gold border-accent-gold/20">
               Featured
             </Badge>
           )}
