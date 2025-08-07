@@ -69,11 +69,11 @@ const BlogCard = ({ post, featured = false }: { post: BlogPost; featured?: boole
 
     <CardHeader className="pb-4">
       <div className="flex items-center justify-between mb-3">
-        <Badge variant="outline" className="text-xs border-accent-gold/30 text-accent-gold">
+        <Badge variant="outline" className="text-xs">
           {post.category}
         </Badge>
         {post.featured && (
-          <Badge className="bg-accent-gold/10 text-accent-gold border-accent-gold/20">
+          <Badge variant="secondary">
             Featured
           </Badge>
         )}
@@ -121,7 +121,7 @@ export const BlogSection = ({ className = "" }: BlogSectionProps) => {
     <section className={`py-16 px-6 ${className}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-accent mb-4 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-up">
             Latest Insights
           </h2>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in-up animate-delay-100">

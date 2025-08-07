@@ -41,7 +41,7 @@ export const ToolCard = ({ tool, className = "" }: ToolCardProps) => {
             </div>
           </div>
           {tool.featured && (
-            <Badge variant="secondary" className="bg-accent-gold/10 text-accent-gold border-accent-gold/20">
+            <Badge variant="secondary">
               Featured
             </Badge>
           )}

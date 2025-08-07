@@ -140,7 +140,7 @@ export const TutorialSection = ({ className = "" }: TutorialSectionProps) => {
     <section className={`py-16 px-6 bg-muted/30 ${className}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-accent-gold mb-4 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-up">
             Learning Resources
           </h2>
           <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed animate-fade-in-up animate-delay-100">
