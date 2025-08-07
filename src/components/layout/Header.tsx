@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Input } from "@/components/ui/input";
@@ -13,11 +14,11 @@ export const Header = ({ isDark, onToggle }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Tools", href: "#tools" },
-    { name: "Tutorials", href: "#tutorials" },
-    { name: "Blog", href: "#blog" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" }
+    { name: "Tools", href: "/tools", isRoute: true },
+    { name: "Tutorials", href: "#tutorials", isRoute: false },
+    { name: "Blog", href: "#blog", isRoute: false },
+    { name: "About", href: "#about", isRoute: false },
+    { name: "Contact", href: "#contact", isRoute: false }
   ];
 
   const socialLinks = [
@@ -31,21 +32,31 @@ export const Header = ({ isDark, onToggle }: HeaderProps) => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="text-xl font-bold text-accent hover:scale-105 theme-transition cursor-pointer">
+            <Link to="/" className="text-xl font-bold text-accent hover:scale-105 theme-transition">
               AI Tools Hub
-            </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-accent transition-colors duration-200 font-medium hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded-md px-2 py-1"
-              >
-                {item.name}
-              </a>
+              item.isRoute ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="text-foreground hover:text-accent transition-colors duration-200 font-medium hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded-md px-2 py-1"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-accent transition-colors duration-200 font-medium hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded-md px-2 py-1"
+                >
+                  {item.name}
+                </a>
+              )
             ))}
           </nav>
 
@@ -114,14 +125,25 @@ export const Header = ({ isDark, onToggle }: HeaderProps) => {
             {/* Mobile Navigation */}
             <nav className="px-4 space-y-2">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block text-foreground hover:text-accent transition-colors duration-200 font-medium py-2 px-3 rounded-md hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+                item.isRoute ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block text-foreground hover:text-accent transition-colors duration-200 font-medium py-2 px-3 rounded-md hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block text-foreground hover:text-accent transition-colors duration-200 font-medium py-2 px-3 rounded-md hover:bg-accent/10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </a>
+                )
               ))}
             </nav>
 
