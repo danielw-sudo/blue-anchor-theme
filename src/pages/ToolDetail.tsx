@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -90,6 +90,19 @@ const getToolDetails = (toolId: string) => {
 
 const ToolDetail = () => {
   const [isDark, setIsDark] = useState(false);
+
+  // Sync the root theme class with local state
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) root.classList.add('dark');
+    else root.classList.remove('dark');
+  }, [isDark]);
+
+  // Initialize from current document theme so it respects global toggle across routes
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
   const { id } = useParams<{ id: string }>();
   
   if (!id) {
