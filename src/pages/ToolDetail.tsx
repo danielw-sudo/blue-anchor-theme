@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -25,6 +25,8 @@ import {
   productivityTools, 
   lifestyleTools 
 } from "@/data/toolsData";
+import { useThemeSync } from "@/hooks/useThemeSync";
+import { Seo } from "@/components/seo/Seo";
 
 const allTools = [
   ...makingMoneyTools,
@@ -89,20 +91,7 @@ const getToolDetails = (toolId: string) => {
 };
 
 const ToolDetail = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  // Sync the root theme class with local state
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) root.classList.add('dark');
-    else root.classList.remove('dark');
-  }, [isDark]);
-
-  // Initialize from current document theme so it respects global toggle across routes
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
-  }, []);
-
+  const { isDark, toggle } = useThemeSync();
   const { id } = useParams<{ id: string }>();
   
   if (!id) {
@@ -114,8 +103,8 @@ const ToolDetail = () => {
   if (!tool) {
     return (
       <div className="min-h-screen bg-background">
-        <Header isDark={isDark} onToggle={() => setIsDark(!isDark)} />
-        <main className="pt-20 px-6">
+        <Header isDark={isDark} onToggle={toggle} />
+        <main className="pt-20 px-6" role="main">
           <div className="max-w-4xl mx-auto text-center py-16">
             <h1 className="text-3xl font-bold mb-4">Tool Not Found</h1>
             <p className="text-muted-foreground mb-6">The tool you're looking for doesn't exist.</p>
@@ -134,9 +123,14 @@ const ToolDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+      <Seo 
+        title={`${tool.name} | AI Tool Details`}
+        description={tool.description}
+        canonicalPath={`/tools/${id}`}
+      />
+      <Header isDark={isDark} onToggle={toggle} />
       
-      <main className="pt-20">
+      <main className="pt-20" role="main" aria-labelledby="tool-title">
         {/* Breadcrumb */}
         <section className="py-6 px-6 border-b border-border/50">
           <div className="max-w-6xl mx-auto">
@@ -158,7 +152,7 @@ const ToolDetail = () => {
                     {tool.icon}
                   </div>
                   <div>
-                    <h1 className="text-3xl md:text-4xl font-bold">{tool.name}</h1>
+                    <h1 id="tool-title" className="text-3xl md:text-4xl font-bold">{tool.name}</h1>
                     <div className="flex items-center gap-4 mt-2">
                       {tool.rating && (
                         <div className="flex items-center gap-1">
@@ -180,11 +174,13 @@ const ToolDetail = () => {
                 </p>
 
                 <div className="flex flex-wrap gap-3">
-                  <Button size="lg" className="hover:scale-105 transition-transform">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Visit Website
+                  <Button size="lg" className="hover:scale-105 transition-transform" asChild>
+                    <a href={tool.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${tool.name} website`}>
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Visit Website
+                    </a>
                   </Button>
-                  <Button variant="outline" size="lg">
+                  <Button variant="outline" size="lg" aria-label="Add to favorites">
                     <Star className="w-4 h-4 mr-2" />
                     Add to Favorites
                   </Button>

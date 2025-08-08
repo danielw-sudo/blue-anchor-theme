@@ -225,7 +225,7 @@ All colors MUST be HSL.
   }
 
   .card-interactive:hover {
-    border: 2px solid #A67C00;
+    border: 1px solid hsl(var(--accent));
     transform: translateY(-2px);
     box-shadow: 0 10px 25px -5px hsl(var(--accent) / 0.1), 0 8px 10px -6px hsl(var(--accent) / 0.1);
   }

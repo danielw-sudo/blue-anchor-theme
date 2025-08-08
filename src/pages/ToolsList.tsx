@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -14,6 +14,8 @@ import {
   productivityTools, 
   lifestyleTools 
 } from "@/data/toolsData";
+import { Seo } from "@/components/seo/Seo";
+import { useThemeSync } from "@/hooks/useThemeSync";
 
 const allTools = [
   ...makingMoneyTools,
@@ -46,22 +48,10 @@ const categories = [
 ];
 
 const ToolsList = () => {
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, toggle } = useThemeSync();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPricing, setSelectedPricing] = useState("All");
-
-  // Sync the root theme class with local state
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) root.classList.add('dark');
-    else root.classList.remove('dark');
-  }, [isDark]);
-
-  // Initialize from current document theme so it respects global toggle across routes
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'));
-  }, []);
 
   const filteredTools = allTools.filter(tool => {
     const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -73,8 +63,14 @@ const ToolsList = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+    <>
+      <Seo 
+        title="AI Tools Directory | Browse Top AI Tools"
+        description="Explore AI tools for productivity, content creation, SEO, and more. Filter and discover the best tools for your workflow."
+        canonicalPath="/tools"
+      />
+      <div className="min-h-screen bg-background">
+      <Header isDark={isDark} onToggle={toggle} />
       
       <main className="pt-20">
         {/* Page Header */}
@@ -98,6 +94,7 @@ const ToolsList = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                 <Input
                   placeholder="Search tools..."
+                  aria-label="Search tools"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -112,6 +109,7 @@ const ToolsList = () => {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
+                  aria-label="Filter by category"
                   className="px-3 py-2 rounded-md border border-input bg-background text-sm"
                 >
                   {categories.map(category => (
@@ -123,6 +121,7 @@ const ToolsList = () => {
                 <select
                   value={selectedPricing}
                   onChange={(e) => setSelectedPricing(e.target.value)}
+                  aria-label="Filter by pricing"
                   className="px-3 py-2 rounded-md border border-input bg-background text-sm"
                 >
                   <option value="All">All Pricing</option>
@@ -180,6 +179,7 @@ const ToolsList = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

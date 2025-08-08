@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export interface ToolData {
   id: string;
@@ -21,7 +22,7 @@ interface ToolCardProps {
 
 export const ToolCard = ({ tool, className = "" }: ToolCardProps) => {
   return (
-    <Card className={`glass-light backdrop-blur-sm hover:glass-enhanced card-interactive group cursor-pointer rounded-lg ${className}`}>
+    <Card role="article" tabIndex={0} className={`glass-light backdrop-blur-sm hover:glass-enhanced card-interactive group cursor-pointer rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}>
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
@@ -74,9 +75,12 @@ export const ToolCard = ({ tool, className = "" }: ToolCardProps) => {
         <Button 
           variant="outline" 
           className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-200 border-accent/20 hover:border-accent"
+          asChild
         >
-          <ExternalLink className="w-4 h-4 mr-2" />
-          Learn More
+          <Link to={`/tools/${tool.id}`} aria-label={`Learn more about ${tool.name}`}>
+            <ExternalLink className="w-4 h-4 mr-2" />
+            Learn More
+          </Link>
         </Button>
       </CardFooter>
     </Card>
