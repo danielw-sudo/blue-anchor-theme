@@ -4,16 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export interface ToolData {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  icon: string;
-  pricing: "Free" | "Freemium" | "Paid";
-  rating?: number;
-  featured?: boolean;
-}
+import type { ToolData } from "@/types";
 
 interface ToolCardProps {
   tool: ToolData;

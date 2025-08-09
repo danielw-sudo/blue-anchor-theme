@@ -1,4 +1,5 @@
-import { ToolCard, type ToolData } from "./ToolCard";
+import { ToolCard } from "./ToolCard";
+import type { ToolData } from "@/types";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 

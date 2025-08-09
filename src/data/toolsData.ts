@@ -1,4 +1,4 @@
-import { ToolData } from "@/components/directory/ToolCard";
+import type { ToolData } from "@/types";
 
 export const makingMoneyTools: ToolData[] = [
   {
