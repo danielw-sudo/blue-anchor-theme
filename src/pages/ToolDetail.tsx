@@ -141,206 +141,215 @@ const ToolDetail = () => {
           </div>
         </section>
 
-        {/* Tool Header */}
-        <section className="py-12 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
-              {/* Tool Info */}
-              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center text-accent text-3xl font-bold">
+        {/* Hero Card Section */}
+        <section className="py-8 px-6">
+          <div className="max-w-4xl mx-auto">
+            <Card className="overflow-hidden border border-border/50">
+              {/* Tool Header Card */}
+              <div className="bg-gradient-to-br from-muted/30 to-muted/10 p-8">
+                <div className="flex items-start gap-6">
+                  <div className="w-20 h-20 bg-card rounded-2xl flex items-center justify-center text-4xl font-bold border border-border/20 shadow-sm">
                     {tool.icon}
                   </div>
-                  <div>
-                    <h1 id="tool-title" className="text-3xl md:text-4xl font-bold">{tool.name}</h1>
-                    <div className="flex items-center gap-4 mt-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h1 id="tool-title" className="text-2xl md:text-3xl font-bold">{tool.name}</h1>
+                      {tool.featured && (
+                        <Badge className="bg-accent/10 text-accent border-accent/20">Featured</Badge>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground text-lg mb-4">{tool.description}</p>
+                    
+                    {/* Stats Row */}
+                    <div className="flex flex-wrap items-center gap-6 text-sm">
                       {tool.rating && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          <span className="font-medium">{tool.rating}</span>
-                          <span className="text-muted-foreground text-sm">(234 reviews)</span>
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-muted-foreground" />
+                          <span className="font-medium">1.2k</span>
+                          <span className="text-muted-foreground">users</span>
                         </div>
                       )}
-                      <Badge variant="outline">{tool.category}</Badge>
-                      {tool.featured && (
-                        <Badge variant="secondary">Featured</Badge>
-                      )}
+                      <div className="flex items-center gap-2">
+                        <Star className="w-4 h-4 text-muted-foreground" />
+                        <span className="font-medium">{tool.rating || '4.8'}</span>
+                        <span className="text-muted-foreground">rating</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-muted-foreground" />
+                        <span className="font-medium">{tool.company.founded}</span>
+                      </div>
+                      <Badge 
+                        variant="outline"
+                        className={
+                          tool.originalPricing === 'Free' 
+                            ? 'border-green-500/50 text-green-600 dark:text-green-400' 
+                            : tool.originalPricing === 'Freemium'
+                            ? 'border-blue-500/50 text-blue-600 dark:text-blue-400'
+                            : 'border-orange-500/50 text-orange-600 dark:text-orange-400'
+                        }
+                      >
+                        {tool.originalPricing}
+                      </Badge>
                     </div>
                   </div>
                 </div>
-                
-                <p className="text-lg text-secondary leading-relaxed mb-6">
-                  {tool.description}
-                </p>
-
-                <div className="flex flex-wrap gap-3">
-                  <Button size="lg" className="hover:scale-105 transition-transform" asChild>
-                    <a href={tool.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${tool.name} website`}>
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Visit Website
-                    </a>
-                  </Button>
-                  <Button variant="outline" size="lg" aria-label="Add to favorites">
-                    <Star className="w-4 h-4 mr-2" />
-                    Add to Favorites
-                  </Button>
-                </div>
               </div>
 
-              {/* Quick Stats */}
-              <Card className="w-full lg:w-80">
-                <CardHeader>
-                  <CardTitle className="text-lg">Quick Info</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center gap-2">
-                      <DollarSign className="w-4 h-4" />
-                      Pricing
-                    </span>
-                    <Badge 
-                      variant="outline"
-                      className={
-                        tool.originalPricing === 'Free' 
-                          ? 'border-green-500/50 text-green-600 dark:text-green-400' 
-                          : tool.originalPricing === 'Freemium'
-                          ? 'border-blue-500/50 text-blue-600 dark:text-blue-400'
-                          : 'border-orange-500/50 text-orange-600 dark:text-orange-400'
-                      }
-                    >
-                      {tool.originalPricing}
-                    </Badge>
+              {/* Action Bar */}
+              <div className="px-8 py-6 border-t border-border/50 bg-card">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <Button size="lg" className="hover:scale-105 transition-transform" asChild>
+                      <a href={tool.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${tool.name} website`}>
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Visit Website
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="lg" aria-label="Add to favorites">
+                      <Star className="w-4 h-4 mr-2" />
+                      Save
+                    </Button>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center gap-2">
-                      <Users className="w-4 h-4" />
-                      Company Size
-                    </span>
-                    <span className="text-sm">{tool.company.employees}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      Founded
-                    </span>
-                    <span className="text-sm">{tool.company.founded}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center gap-2">
-                      <Tag className="w-4 h-4" />
-                      Category
-                    </span>
-                    <span className="text-sm">{tool.category}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Screenshots */}
-        <section className="py-12 px-6 bg-muted/30">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold mb-8">Screenshots</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tool.screenshots.map((screenshot, index) => (
-                <div key={index} className="rounded-lg overflow-hidden bg-muted">
-                  <img 
-                    src={screenshot} 
-                    alt={`${tool.name} screenshot ${index + 1}`}
-                    className="w-full h-48 object-cover"
-                  />
+                  <Badge variant="secondary" className="text-xs">
+                    <Tag className="w-3 h-3 mr-1" />
+                    {tool.category}
+                  </Badge>
                 </div>
-              ))}
-            </div>
+              </div>
+            </Card>
           </div>
         </section>
 
-        {/* Features & Details */}
-        <section className="py-12 px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Project Description */}
+        <section className="py-8 px-6">
+          <div className="max-w-4xl mx-auto">
+            <Card>
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="w-5 h-5" />
+                    Project Description
+                  </CardTitle>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="w-4 h-4" />
+                    <span>Updated: {tool.company.founded}</span>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="prose prose-sm max-w-none dark:prose-invert">
+                <h3 className="text-xl font-semibold mb-4">What It Does</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {tool.name} is a powerful AI tool designed to enhance productivity and streamline workflows. 
+                  It leverages advanced machine learning algorithms to provide intelligent automation and insights 
+                  for modern businesses and developers.
+                </p>
+                
+                <h3 className="text-xl font-semibold mb-4">Why It's Cool</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  {tool.features.slice(0, 4).map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <h3 className="text-xl font-semibold mb-4 mt-8">How to Get Started</h3>
+                <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
+                  <code className="text-sm">
+                    1. Visit the official website<br/>
+                    2. Create your free account<br/>
+                    3. Follow the setup guide<br/>
+                    4. Start building with {tool.name}
+                  </code>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Features & Analysis */}
+        <section className="py-8 px-6 bg-muted/20">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Features */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg">
                     <Zap className="w-5 h-5" />
                     Key Features
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3">
+                  <div className="space-y-3">
                     {tool.features.map((feature, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-accent rounded-full" />
-                        <span>{feature}</span>
-                      </li>
+                      <div key={index} className="flex items-start gap-3 py-2">
+                        <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{feature}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </CardContent>
               </Card>
 
               {/* Use Cases */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="w-5 h-5" />
-                    Use Cases
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Users className="w-5 h-5" />
+                    Best For
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3">
+                  <div className="space-y-3">
                     {tool.useCases.map((useCase, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-accent rounded-full" />
-                        <span>{useCase}</span>
-                      </li>
+                      <div key={index} className="flex items-start gap-3 py-2">
+                        <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{useCase}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </CardContent>
               </Card>
             </div>
 
             {/* Pros & Cons */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-              <Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              <Card className="border-green-500/20">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                  <CardTitle className="flex items-center gap-2 text-lg text-green-600 dark:text-green-400">
                     <Award className="w-5 h-5" />
-                    Pros
+                    Strengths
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3">
+                  <div className="space-y-3">
                     {tool.pros.map((pro, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full" />
-                        <span>{pro}</span>
-                      </li>
+                      <div key={index} className="flex items-start gap-3 py-2">
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{pro}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border-orange-500/20">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-orange-600 dark:text-orange-400">
-                    <Award className="w-5 h-5" />
-                    Cons
+                  <CardTitle className="flex items-center gap-2 text-lg text-orange-600 dark:text-orange-400">
+                    <Shield className="w-5 h-5" />
+                    Considerations
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3">
+                  <div className="space-y-3">
                     {tool.cons.map((con, index) => (
-                      <li key={index} className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full" />
-                        <span>{con}</span>
-                      </li>
+                      <div key={index} className="flex items-start gap-3 py-2">
+                        <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{con}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -348,31 +357,38 @@ const ToolDetail = () => {
         </section>
 
         {/* Pricing */}
-        <section className="py-12 px-6 bg-muted/30">
-          <div className="max-w-6xl mx-auto">
+        <section className="py-8 px-6">
+          <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-8 text-center">Pricing Plans</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {tool.pricingPlans.plans.map((plan, index) => (
-                <Card key={index} className={`relative ${index === 1 ? 'border-accent scale-105' : ''}`}>
+                <Card key={index} className={`relative ${index === 1 ? 'border-accent ring-2 ring-accent/20' : 'border-border/50'}`}>
                   {index === 1 && (
                     <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <Badge className="bg-accent text-accent-foreground">Most Popular</Badge>
+                      <Badge className="bg-accent text-accent-foreground shadow-sm">Most Popular</Badge>
                     </div>
                   )}
-                  <CardHeader className="text-center">
-                    <CardTitle>{plan.name}</CardTitle>
-                    <div className="text-3xl font-bold">{plan.price}<span className="text-lg text-muted-foreground">/month</span></div>
+                  <CardHeader className="text-center pb-4">
+                    <CardTitle className="text-lg">{plan.name}</CardTitle>
+                    <div className="text-2xl font-bold">
+                      {plan.price}
+                      <span className="text-sm text-muted-foreground font-normal">/month</span>
+                    </div>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3 mb-6">
+                  <CardContent className="pt-0">
+                    <ul className="space-y-2 mb-6">
                       {plan.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-accent rounded-full" />
-                          <span className="text-sm">{feature}</span>
+                        <li key={featureIndex} className="flex items-start gap-3 text-sm">
+                          <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-muted-foreground">{feature}</span>
                         </li>
                       ))}
                     </ul>
-                    <Button className="w-full" variant={index === 1 ? "default" : "outline"}>
+                    <Button 
+                      className="w-full" 
+                      variant={index === 1 ? "default" : "outline"}
+                      size="sm"
+                    >
                       {plan.price === "$0" ? "Get Started" : "Choose Plan"}
                     </Button>
                   </CardContent>
